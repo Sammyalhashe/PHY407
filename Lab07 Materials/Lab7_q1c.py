@@ -56,9 +56,15 @@ def simp(f):
 
 	return s*h/3
 
-unnorm01 = simp(abs(R01)**2); norm01 = R01/unnorm01
-unnorm02 = simp(abs(R02)**2); norm02 = R02/unnorm02
-unnorm11 = simp(abs(R11)**2); norm11 = R11/unnorm11
+# Normalization constant
+unnorm01 = simp(abs(R01)**2); #norm01 = R01/unnorm01
+unnorm02 = simp(abs(R02)**2); #norm02 = R02/unnorm02
+unnorm11 = simp(abs(R11)**2); #norm11 = R11/unnorm11
+
+# Apply normalization constant
+norm01 = R01/np.sqrt(unnorm01)
+norm02 = R02/np.sqrt(unnorm02)
+norm11 = R11/np.sqrt(unnorm11)
 
 rplot = np.arange(h, rmax, (rmax-h)/12)
 
