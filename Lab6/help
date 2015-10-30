@@ -1,0 +1,27 @@
+dr=zeros(2*N)
+
+dr[0:N]=v
+
+for i in range(N):
+    if i==0:
+        dr[N+i]=k/m*(zeta[1] - zeta[0]) + F_i(0, t)/m
+    elif i==N:
+        ...
+    else:
+        dr[N+i]=k/m*(zeta[i] + zeta[i-2] - 2*zeta[i-1])
+
+return dr
+
+
+
+
+
+zeta_solution=zeros((N,len(times)))
+
+t_ind=0
+for t in times:
+    zeta_solution[:,t_ind]=r[0:N]
+
+    RK4
+
+    t_ind+=1
