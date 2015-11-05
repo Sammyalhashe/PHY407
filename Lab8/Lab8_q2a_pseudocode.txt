@@ -1,0 +1,39 @@
+# IMPORT modules numpy, matplotlib
+
+# SET L = 40 m, D = 50 m, delta = 2, A = 1
+
+# Initialize an empty array for eta 
+
+# Set eta(x, t=0) = eta0(x) = -A*np.exp(-(x-L/2)**2/delta**2)
+
+# Initialize an empty array for phi
+
+# DEFINE initial phi(x, t=0) = 0
+
+# Forwards Euler eta(x, t = h/2) = eta(x, t = 0) + f(t = 0)*h/2
+
+
+
+# Forwards Euler phi(x, z = 0, t = h/2) = phi(x, z = 0, t = 0) + f(t = 0)*h/2
+
+
+
+
+# Start to solve laplaces equation for phi(x, z = 0, t = h/2)
+
+# Initialize M = 100, and epsilon = 1e-3
+
+# Create arrays to hold the solutions 
+laplacesol = np.zeros([M + 1, M + 1], float)
+laplacesol[0,:] = 0 
+laplacesol_ = np.empty([M + 1, M + 1], float)
+
+# Calculte using finite diff dphi(x, z = 0, t = h/2)/dz 
+
+diffz = np.empty([N, N])
+
+diffz[0] = (phi(x, z + delta) - V(x,z))/delta
+diffz[-1] = (phi(x,z) - V(x, z - delta))/delta
+diffz[1:-2] = (phi(x, z + delta) - V(x, z - delta))/(2*delta)
+
+# Initialize loop variable i
