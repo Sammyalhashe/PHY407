@@ -4,13 +4,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 """
-Simulates linear water waves at various different times
-using the vectorized jacobi method and leapfrogging. 
+Contour plot of eta only
 """
 
 __author__ = "Eric Yeung"
 
-L      = 400.# Metres
+L      = 1500.# Metres
 D      = 50. # Metres 
 bdelta = 2.  # Metres
 A      = 1.  # Metre
@@ -43,7 +42,7 @@ for i in range(len(xpoints)):
 Euler Forward method to get our half step
 """
 
-h = 0.1
+h = 0.5
 
 etafull = np.copy(eta)
 etahalf = np.zeros(len(xpoints), float)
@@ -84,7 +83,7 @@ halfdphi = (phihalf[0,:] - phihalf[1,:])/dz # dphi/dz at t = h/2
 Main Leapfrogging Loop
 """
 
-nsteps = 200
+nsteps = 300
 i = 1
 t = 0
 
@@ -126,43 +125,19 @@ while i < nsteps:
 	t += 0.5*h
 	i += 1
 
-	# Find out which index gives us the times we want (0, 2, 5)
-	#print t, i
+etaplot = np.array(etavalues)
+phiplot = np.array(phivalues)[1] 
+
+tplot = np.arange(0, 40, 40/nsteps)
+
+plt.contourf(xpoints, tplot, etaplot, cmap = 'ocean')
+plt.colorbar()
+
+plt.xlabel('x')
+plt.ylabel('t')
+plt.title('$\eta$(x,t)')
+plt.show()
 
 """
-Pick out the rows that correspond to the different columns 
-and start to plot x vs eta 
+plt.contourf(zpoints, tplot, phiplot, cmap = 'ocean')
 """
-
-etaplot0 = np.array(etavalues)[0,:] # at t = 0   (i = 0)
-etaplot2 = np.array(etavalues)[15,:] # at t = 2  (i = 41)
-etaplot5 = np.array(etavalues)[35,:] # at t = 5 (i = 101)
-etaplot10 = np.array(etavalues)[70,:] # at t = 5 (i = 101)
-etaplot20 = np.array(etavalues)[135,:] # at t = 5 (i = 101)
-etaplot30 = np.array(etavalues)[199,:] # at t = 5 (i = 101)
-
-phiplot = np.array(phivalues)[0][0,:] # Don't need to plot phi anyways
-
-figure, (ax1, ax2, ax3, ax4, ax5, ax6) = plt.subplots(6, sharex = True)
-ax1.plot(xpoints, etaplot0, color = 'maroon', label = 't = 0s')
-ax2.plot(xpoints, etaplot2, color = 'deepskyblue', label = 't = 2s')
-ax3.plot(xpoints, etaplot5, color = 'forestgreen',label = 't = 5s')
-ax4.plot(xpoints, etaplot10, color = 'darkorange',label = 't = 10s')
-ax5.plot(xpoints, etaplot20, color = 'navy',label = 't = 20s')
-ax6.plot(xpoints, etaplot30, color = 'fuchsia',label = 't = 30s')
-
-time1 = time.time() - startTime1 # Stop timing second operation
-print "This simulation took %s seconds!" % time1
-
-# Hide y-tick labels because too messy
-for ax in (ax1, ax2, ax3, ax4, ax5, ax6):
-	ax.set_yticklabels([])
-
-figure.text(0.0, 0.5, '$\eta$(x,t)', va='center', rotation='vertical')
-ax6.set_xlabel('x')
-
-ax1.set_title("Linear Water Waves at t = (0, 2, 5, 10, 20, 30) s")
-plt.tight_layout()
-
-if __name__ == "__main__": 
-	plt.show()

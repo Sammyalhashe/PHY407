@@ -4,13 +4,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 """
-Simulates linear water waves at various different times
-using the vectorized jacobi method and leapfrogging. 
+Change L = 1500, nsteps = 300, and h = 0.5
 """
 
 __author__ = "Eric Yeung"
 
-L      = 400.# Metres
+L      = 1500.# Metres
 D      = 50. # Metres 
 bdelta = 2.  # Metres
 A      = 1.  # Metre
@@ -23,7 +22,6 @@ dz = 1.0
 
 xpoints = np.arange(0, L, dx)
 zpoints = np.arange(-D, 0, dz)
-#zpoints = np.arange(0, D, dz)
 
 # Initialize eta (1D Array)
 eta = np.zeros(len(xpoints), float)
@@ -43,7 +41,7 @@ for i in range(len(xpoints)):
 Euler Forward method to get our half step
 """
 
-h = 0.1
+h = 0.5
 
 etafull = np.copy(eta)
 etahalf = np.zeros(len(xpoints), float)
@@ -84,7 +82,7 @@ halfdphi = (phihalf[0,:] - phihalf[1,:])/dz # dphi/dz at t = h/2
 Main Leapfrogging Loop
 """
 
-nsteps = 200
+nsteps = 300
 i = 1
 t = 0
 

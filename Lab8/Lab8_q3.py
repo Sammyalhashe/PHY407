@@ -1,83 +1,66 @@
-#!/usr/bin/env python
-from __future__ import division
-import numpy as np
-import matplotlib.pyplot as plt
+from __future__ import division, print_function
 
-"""
-Calculates the temperature profile of the crust as a function 
-of depth up to 20 metres and time up to 10 years.
-Modified heat.py from textbook. 
-"""
+# PHY407, Fall 2015, Q3
+__author__ = "DUONG, BANG CHI"
 
-__author__ = "Eric Yeung"
+# Import modules
+from numpy import zeros, sin, pi
+from matplotlib.pyplot import plot, legend, xlabel, ylabel, title, show, xlim
 
-# Constants
-L = 20        # Depth in metres
-D = 0.1       # Thermal diffusivity (m^2/day)
+
+def T0(t):
+    A = 10
+    B = 12
+    tau = 365 # days = 12 months
+    return A + B*sin(2*pi*t/tau)
+
+L = 20     # Depth in meters
+D = 0.1   # Thermal diffusivity, m**2/days
 N = 100       # Number of divisions in grid
 a = L/N       # Grid spacing
-h = 1e-3     # Time-step
-epsilon = h/100
+h = 0.01     # Time-step
+#epsilon = h/1000
 
-Tmid = 10.0   # Temperature everywhere except surface and 20m
-Thi = 11.0    # Temperature at 20m, deepest point
+# Define an array for temperature
+T = zeros(N+1,float)
 
-# Temperature at the surface
-def T0(t):
-	A = 10
-	B = 12
-	tau = 365
-	return A + B*np.sin(2*np.pi*t/tau)
+# Temperature everywhere equal to 10C, except at the surface and the deepest point
+T[1:N]=10 
 
-# Times to plot the temperature profile for the last year in three month intervals
-# 10 years so multiply by 10, plot last year
-"""
-t1 = epsilon
-t2 = t1 + 3376
-t3 = t2 + (30 + 31 + 30)
-t4 = t3 + (31 + 31 + 30)
-t5 = t4 + (31 + 30 + 31)
-tend = t5 + epsilon
-"""
-t1 = 365*9
-t2 = t1 + (30 + 31 + 30)
-t3 = t2 + (30 + 31 + 30)
-t4 = t3 + (31 + 31 + 30)
-t5 = t4 + (31 + 30 + 31)
+# Iteration
+def iterate(T, t_min, t_max):
+	# Main loop
+	t = t_min
+	c = h*D/a**2
 
-# Create arrays
-T = np.empty(N+1,float)
-T[0] = Thi
-T[N] = T0(epsilon)
-T[1:N] = Tmid
-Tp = np.empty(N+1,float)
-Tp[0] = Thi
-Tp[N] = T0(epsilon)
+	while t < t_max:
+	
+	    # Calculate the new values of T
+		T[0] = T0(t)
+		T[N] = 11
+		T[1:N] = T[1:N] + c*(T[2:N+1]+T[0:N-1]-2*T[1:N])
+	    
+		t += h
+	return T
 
-# Main loop
-t = 0.0
-c = h*D/(a*a)
 
-while t < t1:
+T9 = iterate(T, 0, 365*9)
 
-    Tp[1:N] = T[1:N] + c*(T[0:N-1] + T[2:N+1] - 2*T[1:N])
-    T, Tp = Tp, T
-    t += h
+T9_i = T9
+t_min = 365*9 # end of the 9th year
 
-    # Make plots at the given times
-    if abs(t - t1) < epsilon:
-        plt.plot(T)
-    if abs(t - t2) < epsilon:
-        plt.plot(T)
-    if abs(t - t3) < epsilon:
-        plt.plot(T)
-    if abs(t - t4) < epsilon:
-        plt.plot(T)
-    if abs(t - t5) < epsilon:
-        plt.plot(T)
+# Plot
+for i in range(4):
+	for t_max in [t_min + i*(365//4)]:
+	#t_max = t_min + 365//4
+		T9_i = iterate(T9_i, t_min, t_max)
+		plot(T9_i, label = "the {}(st/nd/rd/th) 3-month intervals of the 10th year".format(i+1))
+		t_min = t_max
 
-plt.xlabel("Depth")
-plt.ylabel("Temperature")
-plt.title("Thermal Diffusion in Earth's Crust")
+legend(prop={'size':11}).draggable()
+xlabel("Depth (m)")
+ylabel("Temperature (degree C)")
+xlim(0,20)
+title("Thermal Diffusion in Earth's Crust")
 
-plt.show()
+show()

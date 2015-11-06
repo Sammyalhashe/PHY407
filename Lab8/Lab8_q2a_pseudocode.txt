@@ -1,39 +1,48 @@
-# IMPORT modules numpy, matplotlib
+##################################
+Pseudo code for Q2
+##################################
 
-# SET L = 40 m, D = 50 m, delta = 2, A = 1
+# IMPORT modules numpy, matplotlib, and time
+
+# SET L = 40 m, D = 50 m, delta = 2, A = 1, target = 1e-4
+
+# Set the xpoints and zpoints to 0 < x < L and -D < z < 0
 
 # Initialize an empty array for eta 
 
-# Set eta(x, t=0) = eta0(x) = -A*np.exp(-(x-L/2)**2/delta**2)
-
 # Initialize an empty array for phi
 
-# DEFINE initial phi(x, t=0) = 0
+# DEFINE initial phi(x, t=0) = 0, or just do nothing
 
-# Forwards Euler eta(x, t = h/2) = eta(x, t = 0) + f(t = 0)*h/2
+# START timing
 
+# Set eta(x, t=0) = eta0(x) = -A*np.exp(-(x-L/2)**2/delta**2) initial cond. 
 
+# USE Euler forward method to get eta(t = h/2) and phi(z = 0, t = h/2)
 
-# Forwards Euler phi(x, z = 0, t = h/2) = phi(x, z = 0, t = 0) + f(t = 0)*h/2
+# CREATE a function called Laplace that solves the laplace equation for phi(x, z, t = h/2)
+# using the vectorized Jacobi method. 
 
+# CALL the function I just made
 
+# USE finite differences and calculate the differential of phi(z=0, t = h/2)
 
+# CREATE a list for eta and phi to store the values 
 
-# Start to solve laplaces equation for phi(x, z = 0, t = h/2)
+# START the leapfrogging loop
+	# CALCULATE the full eta and phi steps using the derivative at the half step
+	# SOLVE the laplace equation for the full step of phi
+	# INCREMENT t by h
+	# CALCULATE the next halfstep using the diff at the full step
+	# SOLVE the laplace equation again for the half step of phi
+	# APPEND the eta and phi values to our list
+	# INCREMENT t and i by h/2 and 1 respectively
+	# PRINT each t and i so we know which index of the array gives us which time 
 
-# Initialize M = 100, and epsilon = 1e-3
+# DEFINE points to plot using the i's we found above 
 
-# Create arrays to hold the solutions 
-laplacesol = np.zeros([M + 1, M + 1], float)
-laplacesol[0,:] = 0 
-laplacesol_ = np.empty([M + 1, M + 1], float)
+# PLOT x vs eta for the request times (or more)
 
-# Calculte using finite diff dphi(x, z = 0, t = h/2)/dz 
+# STOP timing and print the time it took for the simulation to run
 
-diffz = np.empty([N, N])
-
-diffz[0] = (phi(x, z + delta) - V(x,z))/delta
-diffz[-1] = (phi(x,z) - V(x, z - delta))/delta
-diffz[1:-2] = (phi(x, z + delta) - V(x, z - delta))/(2*delta)
-
-# Initialize loop variable i
+########################################### DONE ####################################################
