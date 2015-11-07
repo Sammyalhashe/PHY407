@@ -90,7 +90,6 @@ t = 0
 etavalues = []
 etavalues.append(eta) # append initial conditions
 phivalues = []
-phivalues.append(phi[0])
 
 while i < nsteps:
 
