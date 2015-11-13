@@ -41,7 +41,7 @@ for i in range(len(xpoints)):
 Euler Forward method to get our half step
 """
 
-h = 0.5
+h = 0.7
 
 etafull = np.copy(eta)
 etahalf = np.zeros(len(xpoints), float)
@@ -82,7 +82,7 @@ halfdphi = (phihalf[0,:] - phihalf[1,:])/dz # dphi/dz at t = h/2
 Main Leapfrogging Loop
 """
 
-nsteps = 300
+nsteps = 500
 i = 1
 t = 0
 
