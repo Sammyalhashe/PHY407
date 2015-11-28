@@ -47,6 +47,7 @@ phivalues [0,:] = -g*eta # append initial conditions at z = 0
 nsteps = 200
 t = 0
 i = 1
+
 # Time Evolution
 while i < nsteps:
     """
@@ -71,6 +72,7 @@ while i < nsteps:
     t += 2*h
     i += 1
 
+# Using the indices at the corresponding times
 etaplot0 = etavalues[0,:]
 etaplot2 = etavalues[10,:]
 etaplot10 = etavalues[50,:]
