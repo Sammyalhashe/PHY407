@@ -1,0 +1,21 @@
+Pypar (version 1.9.1) initialised MPI OK with 1 processors
+2.51834776963
+0.526733333333
+tau 0.001 block 0 no. of walkers 100
+energy = 2.50824 +/- 0.000804816
+sigma = 6.47729e-05
+tau 0.001 block 1 no. of walkers 100
+energy = 2.51304 +/- 0.000524061
+sigma = 2.7464e-05
+tau 0.001 block 2 no. of walkers 100
+energy = 2.53004 +/- 0.000766155
+sigma = 5.86993e-05
+tau 0.001 block 3 no. of walkers 100
+energy = 2.5335 +/- 0.00120665
+sigma = 0.0001456
+tau 0.001 block 4 no. of walkers 100
+energy = 2.52183 +/- 0.000481917
+sigma = 2.32244e-05
+tau 0.001 no. of walkers 100
+energy = 2.52133 +/- 0.0464206
+sigma = 0.0107744

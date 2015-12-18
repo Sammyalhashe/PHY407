@@ -1,0 +1,24 @@
+set wave type       = DuBois  #type of wave function
+set numerical       = 0       #numerical
+set metropolis      = 1       #metropolis=1,linear=0,quadric=2
+set save pos        = 1       #save_pos=1
+set no. of walkers  = 100     #number of walkers
+set desired walkers = 100     #desired number of walkers
+set particles       = 2       #particles
+set dimensions      = 3       #dimensions
+set steps           = 100     #time steps
+set termalization   = 50      #thermalization
+set metropolis termalization = 150     #metropolis_termalization
+set step length     = 1.5     #step length
+set idum            = 68758   #idum
+set tau             = 5e-05   #tau
+set D               = 1       #D
+set e_trial         = 6.01042 #trial energy
+# params are (in order): initial param no. 1, dummy, particle size,
+dummy, healing length, lambda, kappa, 
+do Jackson-Feenberg
+set params          = [0.53, 0, 0.15155, 0, 200, 2.82842712475, 1, 0]
+        
+# parameters only used in python version:
+set scale	    = 2  #scale used in calculation of energy
+set outfile         = 'output.dat'
